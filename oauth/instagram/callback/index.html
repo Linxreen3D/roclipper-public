@@ -1,0 +1,20 @@
+<!doctype html>
+<html lang="de"><head><meta charset="utf-8"><meta name="robots" content="noindex, nofollow">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>RoClipper</title></head>
+<body style="font: 16px system-ui, sans-serif; margin: 2rem">
+<p id="msg">Weiter zu RoClipper ...</p>
+<script>
+(() => {
+  const q = new URLSearchParams(location.search);
+  const part = (q.get("state") || "").split("~")[1] || "";
+  let origin = "";
+  try { origin = atob(part.replace(/-/g, "+").replace(/_/g, "/")); } catch (_) {}
+  if (!new RegExp("^(http://(127\\.0\\.0\\.1|localhost):\\d{2,5}|https://[a-z0-9-]+\\.trycloudflare\\.com)$").test(origin)) {
+    document.getElementById("msg").textContent =
+      "Ungültige Weiterleitung. Bitte in RoClipper erneut auf „Account verbinden“ tippen.";
+    return;
+  }
+  location.replace(origin + "/oauth/instagram/callback" + location.search);
+})();
+</script></body></html>
